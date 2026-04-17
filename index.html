@@ -3,361 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shovel Quest</title>
+    <title>HTML Game Launcher</title>
     <style>
-      :root {
-        color-scheme: light dark;
-        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
       body {
         margin: 0;
         min-height: 100vh;
         display: grid;
         place-items: center;
-        background: radial-gradient(circle at top, #0f172a, #020617 65%);
+        font-family: Inter, system-ui, sans-serif;
+        background: #0f172a;
         color: #e2e8f0;
       }
 
-      .game {
-        width: min(95vw, 840px);
-        background: rgba(15, 23, 42, 0.94);
-        border-radius: 18px;
-        border: 1px solid rgba(100, 116, 139, 0.45);
-        box-shadow: 0 20px 40px rgba(2, 6, 23, 0.6);
-        padding: 1rem;
-        display: grid;
-        gap: 1rem;
-      }
-
-      h1 {
-        margin: 0;
-        font-size: clamp(1.2rem, 2.6vw, 1.9rem);
-      }
-
-      .layout {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: 1fr;
-      }
-
-      @media (min-width: 800px) {
-        .layout {
-          grid-template-columns: 1.2fr 0.8fr;
-        }
-      }
-
-      .board-wrap {
-        background: rgba(30, 41, 59, 0.5);
-        border: 1px solid rgba(148, 163, 184, 0.25);
+      main {
+        width: min(92vw, 520px);
+        border: 1px solid #334155;
         border-radius: 14px;
-        padding: 0.75rem;
+        padding: 1rem 1.25rem;
+        background: #111827;
       }
 
-      .board {
-        display: grid;
-        grid-template-columns: repeat(8, minmax(0, 1fr));
-        gap: 0.35rem;
-      }
-
-      .tile {
-        aspect-ratio: 1;
-        border-radius: 8px;
-        border: 1px solid rgba(148, 163, 184, 0.25);
-        background: linear-gradient(145deg, #4b5563, #334155);
-        display: grid;
-        place-items: center;
-        font-size: clamp(0.8rem, 1.8vw, 1.1rem);
-        user-select: none;
-      }
-
-      .tile.player {
-        background: linear-gradient(145deg, #38bdf8, #0284c7);
-        border-color: rgba(186, 230, 253, 0.9);
-      }
-
-      .tile.dug {
-        background: linear-gradient(145deg, #7c2d12, #431407);
-      }
-
-      .tile.dug-empty {
-        background: linear-gradient(145deg, #854d0e, #713f12);
-      }
-
-      .panel {
-        display: grid;
-        gap: 0.75rem;
-        align-content: start;
-      }
-
-      .card {
-        border-radius: 12px;
-        border: 1px solid rgba(148, 163, 184, 0.25);
-        background: rgba(30, 41, 59, 0.5);
-        padding: 0.75rem;
-      }
-
-      .card h2 {
-        margin: 0 0 0.45rem;
-        font-size: 1rem;
-      }
-
-      .status {
-        margin: 0;
-        line-height: 1.4;
-      }
-
-      .map-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.25rem;
-      }
-
-      .map-cell {
-        border: 1px solid rgba(148, 163, 184, 0.2);
-        border-radius: 6px;
-        height: 1.35rem;
-        display: grid;
-        place-items: center;
-        font-size: 0.75rem;
-        color: #cbd5e1;
-      }
-
-      .map-cell.hint {
-        background: rgba(245, 158, 11, 0.3);
-        border-color: rgba(245, 158, 11, 0.9);
-      }
-
-      .controls {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-      }
-
-      button {
-        border: none;
-        border-radius: 10px;
-        padding: 0.55rem 0.9rem;
+      a {
+        color: #38bdf8;
         font-weight: 700;
-        cursor: pointer;
-      }
-
-      #new-game {
-        background: #22c55e;
-        color: #052e16;
-      }
-
-      #dig {
-        background: #f59e0b;
-        color: #451a03;
-      }
-
-      .legend {
-        margin: 0;
-        padding-left: 1.1rem;
-        color: #cbd5e1;
       }
     </style>
   </head>
   <body>
-    <main class="game">
-      <h1>🗺️ Shovel Quest: Keyboard Treasure Hunt</h1>
-      <div class="layout">
-        <section class="board-wrap">
-          <div class="board" id="board" aria-label="Treasure field"></div>
-        </section>
-
-        <aside class="panel">
-          <section class="card">
-            <h2>Captain's Log</h2>
-            <p class="status" id="status">Use arrow keys or WASD to move. Press Space to dig.</p>
-          </section>
-
-          <section class="card">
-            <h2>Treasure Map</h2>
-            <div class="map-grid" id="map" aria-label="Map hint"></div>
-            <p class="status" id="map-clue"></p>
-          </section>
-
-          <section class="card">
-            <h2>Gear</h2>
-            <ul class="legend">
-              <li>Explorer: 🤠</li>
-              <li>Shovel action: ⛏️ (Space)</li>
-              <li>Dig limit: <span id="dig-count">10</span></li>
-            </ul>
-            <div class="controls">
-              <button type="button" id="dig">Dig Here</button>
-              <button type="button" id="new-game">New Map</button>
-            </div>
-          </section>
-        </aside>
-      </div>
+    <main>
+      <h1>Game Launcher</h1>
+      <p>
+        To avoid merge conflicts around a shared <code>index.html</code>, the game now lives in a separate file:
+        <a href="./shovel-quest.html">Open Shovel Quest</a>.
+      </p>
     </main>
-
-    <script>
-      const size = 8;
-      const maxDigs = 10;
-
-      const board = document.getElementById("board");
-      const status = document.getElementById("status");
-      const mapGrid = document.getElementById("map");
-      const mapClue = document.getElementById("map-clue");
-      const digCountEl = document.getElementById("dig-count");
-      const digButton = document.getElementById("dig");
-      const newGameButton = document.getElementById("new-game");
-
-      let player = { x: 0, y: 0 };
-      let treasure = { x: 0, y: 0 };
-      let digsLeft = maxDigs;
-      let gameOver = false;
-      const dugTiles = new Set();
-
-      function randomInt(limit) {
-        return Math.floor(Math.random() * limit);
-      }
-
-      function toKey(x, y) {
-        return `${x},${y}`;
-      }
-
-      function updateStatus(text) {
-        status.textContent = text;
-      }
-
-      function quadrantHint() {
-        const qx = Math.floor((treasure.x / size) * 4);
-        const qy = Math.floor((treasure.y / size) * 4);
-        return { qx, qy };
-      }
-
-      function renderMap() {
-        mapGrid.innerHTML = "";
-        const hint = quadrantHint();
-
-        for (let y = 0; y < 4; y += 1) {
-          for (let x = 0; x < 4; x += 1) {
-            const cell = document.createElement("div");
-            cell.className = "map-cell";
-            cell.textContent = "·";
-            if (x === hint.qx && y === hint.qy) {
-              cell.classList.add("hint");
-              cell.textContent = "X";
-            }
-            mapGrid.appendChild(cell);
-          }
-        }
-
-        const dx = treasure.x - player.x;
-        const dy = treasure.y - player.y;
-        const horizontal = dx === 0 ? "same column" : dx > 0 ? `${Math.abs(dx)} east` : `${Math.abs(dx)} west`;
-        const vertical = dy === 0 ? "same row" : dy > 0 ? `${Math.abs(dy)} south` : `${Math.abs(dy)} north`;
-        mapClue.textContent = `Map clue: treasure is ${horizontal} and ${vertical} from you.`;
-      }
-
-      function renderBoard() {
-        board.innerHTML = "";
-
-        for (let y = 0; y < size; y += 1) {
-          for (let x = 0; x < size; x += 1) {
-            const tile = document.createElement("div");
-            tile.className = "tile";
-            const key = toKey(x, y);
-
-            if (dugTiles.has(key)) {
-              tile.classList.add(gameOver && x === treasure.x && y === treasure.y ? "dug" : "dug-empty");
-              tile.textContent = gameOver && x === treasure.x && y === treasure.y ? "💎" : "🕳️";
-            }
-
-            if (player.x === x && player.y === y) {
-              tile.classList.add("player");
-              tile.textContent = gameOver && x === treasure.x && y === treasure.y ? "🥳" : "🤠";
-            }
-
-            board.appendChild(tile);
-          }
-        }
-
-        digCountEl.textContent = String(digsLeft);
-        renderMap();
-      }
-
-      function startGame() {
-        player = { x: randomInt(size), y: randomInt(size) };
-
-        do {
-          treasure = { x: randomInt(size), y: randomInt(size) };
-        } while (treasure.x === player.x && treasure.y === player.y);
-
-        digsLeft = maxDigs;
-        gameOver = false;
-        dugTiles.clear();
-        digButton.disabled = false;
-
-        updateStatus("Use arrow keys or WASD to move. Press Space to dig for treasure.");
-        renderBoard();
-      }
-
-      function move(dx, dy) {
-        if (gameOver) return;
-
-        const nx = Math.max(0, Math.min(size - 1, player.x + dx));
-        const ny = Math.max(0, Math.min(size - 1, player.y + dy));
-
-        player = { x: nx, y: ny };
-        renderBoard();
-      }
-
-      function dig() {
-        if (gameOver || digsLeft <= 0) return;
-
-        const key = toKey(player.x, player.y);
-        if (!dugTiles.has(key)) {
-          dugTiles.add(key);
-          digsLeft -= 1;
-        }
-
-        if (player.x === treasure.x && player.y === treasure.y) {
-          gameOver = true;
-          digButton.disabled = true;
-          updateStatus("Treasure found! Your shovel struck gold and gems! 💎");
-          renderBoard();
-          return;
-        }
-
-        if (digsLeft === 0) {
-          gameOver = true;
-          digButton.disabled = true;
-          dugTiles.add(toKey(treasure.x, treasure.y));
-          updateStatus("Out of digs! The map reveals where the treasure was.");
-          renderBoard();
-          return;
-        }
-
-        updateStatus(`No treasure here. Keep searching! Digs left: ${digsLeft}.`);
-        renderBoard();
-      }
-
-      document.addEventListener("keydown", (event) => {
-        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " ", "w", "a", "s", "d", "W", "A", "S", "D"].includes(event.key)) {
-          event.preventDefault();
-        }
-
-        if (event.key === "ArrowUp" || event.key.toLowerCase() === "w") move(0, -1);
-        if (event.key === "ArrowDown" || event.key.toLowerCase() === "s") move(0, 1);
-        if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") move(-1, 0);
-        if (event.key === "ArrowRight" || event.key.toLowerCase() === "d") move(1, 0);
-        if (event.key === " ") dig();
-      });
-
-      digButton.addEventListener("click", dig);
-      newGameButton.addEventListener("click", startGame);
-
-      startGame();
-    </script>
   </body>
 </html>
